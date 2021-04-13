@@ -1,0 +1,69 @@
+Heart Disease Prediction System Using Data Mining Technique by Fuzzy K-NN Approach
+
+Abstract. Data mining technique in the history of medical data found with
+enormous investigations resulted that the prediction of heart disease is very
+important in medical science. The data from medical history has been found as
+heterogeneous data and it seems that the various forms of data should be
+interpreted to predict the heart disease of a patient. Various techniques in Data
+Mining have been applied to predict the patients of heart disease. But, the
+uncertainty in data was not removed with the techniques available in data
+mining. To remove uncertainty, it has been made an attempt by introducing
+fuzziness in the measured data. A membership function was designed and
+incorporated with the measured value to remove uncertainty. Further, an
+attempt was made to classify the patients based on the attributes collected from
+medical field. Minimum distance K-NN classifier was incorporated to classify
+the data among various groups. It was found that Fuzzy K-NN classifier suits
+well as compared with other classifiers of parametric techniques.
+Keywords: Fuzzy K-NN Classifier, Membership function, Cleveland Heart
+Disease Data Base, Statlog Heart Disease Database,Data Mining,Heart disease.
+Introduction
+The diagnosis of diseases is a vital and intricate job in medicine. The recognition of
+heart disease from diverse features or signs is a multi-layered problem that is not free
+from false assumptions and is frequently accompanied by impulsive effects. The
+health care industry collects huge amount of health care data which unfortunately are
+"not mined" to discover hidden info for effective decision making.
+Number test should be performed to diagnosis the heart disease and it forms
+various investigations with the data available and it is varied from patient to patient
+for health care organisations, data mining techniques are applied to predict the Heart
+Disease and useful in preparing knowledge base for further treatment.
+It was found that more than one in three adults are found diseased because of heart
+problems as per the reports of the World Health Organisation (W.H.O.). It was found that Heart diseases are compared in most of the developed countries are found more
+than that of the third world countries (under developing countries). These disorders of
+the system are termed cardiovascular diseases. Cardiovascular diseases cause an
+estimated 17 million people worldwide each year, majority of these are due to heart
+attacks and strokes. The term Cardio Vascular Diseases (CVD) refer to diseases of the
+heart and blood vessels and includes conditions such as coronary heart disease which
+is also known as ischaemic (heart disease), Cerebrovascular disease (stroke), heart
+failure, Rheumatic heart disease and hypertension (high blood pressure). In India,
+about 25% of deaths at the age group of 25 - 69 years occur because of heart disease.
+In urban areas, 32.8% deaths occur because of heart ailments, while this percentage in
+rural areas is about 22.9%.
+Most of the authors in data mining classifications techniques proposed for the
+prediction of heart disease, but the prediction system did not considered the
+uncertainty in the data measure. So, to remove the ambiguity and uncertainty, we
+made an experiment with fuzzy approach by introducing a membership function to
+the classifier. The fuzzy K-NN classifier results show promising in nature for
+removing the redundancy of data and to improve the accuracy of classifier as
+compared with other classifiers of supervised and un-supervised learning methods in
+data mining.
+The term, Heart disease encompasses the diverse diseases that affect the heart.
+Heart disease is the major cause of casualties in the United States, England, Canada
+and Wales as in 2007. Heart disease kills one person every 34 seconds in the United
+States [13].Coronary heart disease; Cardiomyopathy and Cardiovascular diseases are
+some categories of heart diseases. The term, “cardiovascular disease” includes a wide
+range of conditions that affect the heart and the blood vessels and the manner in
+which blood is pumped and circulated through the body. Cardio Vascular Disease
+(CVD) results in severe illness, disability and death [14]. Narrowing of the coronary
+arteries results in the reduction of blood and oxygen supply to the heart and leads to
+the Coronary Heart Disease (CHD). Myocardial infarctions, generally known as a
+heart attack and angina pectoris or chest pain are encompassed in the CHD. A sudden
+blockage of a coronary artery, generally, due to a blood clot that results a heart attack.
+The chest pains arise when the receiving of the blood by the heart muscles is
+inadequate [15].
+High blood pressure, coronary artery disease, valvular heart disease, stroke or
+rheumatic fever/rheumatic, heart diseases are the various forms of cardiovascular
+disease. The World Health Organization (WHO) has estimated that 12 million of
+deaths occurred worldwide every year due to the cardiovascular diseases. Half of the
+deaths in the United States and other developed countries occur due to cardio vascular
+diseases. It is also the chief reason of the deaths in numerous developing countries.
+On the whole, it is regarded the primary reason behind the deaths in adults [16].

@@ -1,0 +1,525 @@
+Malicious URL Detection using Deep Learning
+Vinayakumar R, Sriram S, Soman KP, and Mamoun Alazab, Senior Fellow, IEEE
+
+Abstract— Malicious Uniform Resource Locator (URL), a.k.a.
+malicious website is a primary mechanism to host unsolicited content, such as spam, malicious advertisements, phishing, drive-by
+exploits, to name few. There is imperative to detect the malicious
+URLs in a timely manner. Previous studies have used blacklisting,
+regular expression and signature matching approaches. These
+approaches are completely ineffective at detecting variants of
+existing malicious URL or entirely newly found URL. This
+issue can be mitigated by proposing the machine learning based
+solution. This type of solution requires an extensive research in
+feature engineering and feature representation of security artifact
+type e.g. URLs. Moreover, feature engineering and feature representation resources must be continuously reformed to handle
+the variants of existing URL or entirely new URL. In recent
+times, with the help of deep learning, artificial intelligent (AI)
+systems achieved human-level performance in several domains
+and even outperformed human vision in several computer vision
+applications. They have the capability to extract optimal feature
+representation by itself by taking the raw inputs. To leverage
+and transform the performance improvement of them towards
+the cyber security domain, we propose DeepURLDetect (DUD) in
+which raw URLs are encoded using characters level embedding.
+Character level embedding is a state of the art method in NLP
+for representing character in numeric format. Hidden layers in
+deep learning architectures extract features from character level
+embedding and then feed forward network with a non-linear
+activation function estimates the probability that the URL is
+malicious. In this work, we evaluate various state of the art deep
+learning based character level embedding methods for malicious
+URL detection. The optimal deep learning based character level
+embedding model is selected by conducting various experiments.
+All the experiments of various deep learning based character
+level embedding models are run till 500 epochs with learning rate
+0.001. The performance obtained by proposed method, DUD is
+closer and computationally inexpensive in compared to various
+state of the art deep learning based character level embedding
+methods in all test cases. Moreover, deep learning architectures
+based on character level embedding models outperformed ngram representation. This is primarily due to the reason that
+the embedding captures the sequence and relation among all the
+characters of URL.
+Index Terms—Cyber security, Cybercrime, Malicious URL,
+Machine learning, Deep learning, Character embedding.
+
+I. INTRODUCTION
+
+MALICIOUS Uniform Resource Locator (URL) host
+unsolicited information and attackers use malicious
+URLs as one of a primary tool to carry out cyber crimes. Email and social media resources such as Facebook, Twitter,
+This work was supported by the Department of Corporate and InformationServices, Northern Territory Government of Australia, the Paramount Computer Systems, and Lakhshya Cyber Security Labs.
+Vinayakumar R, Sriram S, and Soman KP was with Center for Computational Engineering and Networking(CEN), Amrita School of Engineering, Coimbatore Amrita Vishwa Vidyapeetham, India e-mail: (vinayakumarr77@gmail.com).
+Mamoun Alazab was with Charles Darwin University, Australia e-mail:
+(mamoun.alazab@cdu.edu.au).
+
+WhatsApp, Orkut etc. are the most commonly used applications to spread the malicious URLs [1], [2], [3]. They
+host unsolicited information on the web page. Whenever an
+unsuspecting user visits that website unknowingly through the
+URL, a host will be compromised, making them victims of
+various types of frauds including malware installation, data
+and identity theft. Every year, malicious URLs have been
+causing around billions of dollars worth of losses [4]. These
+factors force the development of efficient techniques to detect
+malicious URLs in a timely manner and give an alert to the
+network administrator.
+Most of the commercial products exist in markets are based
+on blacklisting [5]. This relies on a data base which contains a
+list of malicious URLs. These are continually updated by antivirus group through scanning and crowdsourcing solutions.
+This can detect the malicious URL which already exists in the
+data base more accurately. This completely fails at detecting
+the variants of existing malicious URL or the entirely new
+malicious URL itself. In recent days, malicious authors follow
+mutation techniques to generate the several variants of existing
+malware. To cope with this, machine learning techniques are
+followed.
+In recent days, the most commonly used approach is
+applying domain knowledge to extract lexical features of
+URL, followed by applying machine learning models. Most
+commonly used feature engineering is Bag-of-words (BoW)
+and most commonly used machine learning model is support
+vector machine (SVM) [6]. Though machine learning based
+solution can be used instead of blacklisting methodology, it
+suffers from many issues:
+1) The conventional URL representation methods fails to
+capture the sequential patterns and relation among the
+characters.
+2) Conventional machine learning models relies on manual
+feature engineering. This requires an extensive domain
+knowledge in cyber security domain and considered as
+a daunting task. The methods based on features are not
+safe in an adverserial environment.
+3) Fails to hold unrevealed features and it doesn’t generalize on the test data. Additionally, the number of unique
+words immensely large, the machine learning model
+faces memory constraints while training.
+To alleviate the aforementioned issues, this work propose
+christened DeepURLDetect (DUD) which uses modern machine learning typically called as ’deep learning’ with nonlinear character embedding. Deep learning uses multiple hidden layers in which each layer does nonlinear projection to
+learn representations of multiple levels of abstraction. The
+main contributions of the proposed work are:
+1) Detailed investigation and analysis of various benchmark
+deep learning architectures are performed for malicious
+URL detection.
+2) Various types of data sets are used in experimental
+analysis to find out how the models are generalizable.
+The difference between the time-split and random-split
+is shown in the experimental analysis.
+3) Experiments are shown for character level embedding
+and n-gram representation with various deep learning
+architectures
+The rest of the sections of this chapter are organized as
+follows. Section 2 discusses the related works of malicious
+URL detection. Section 3 provides information about URLs.
+Section 4 discusses the background details of benchmark
+text classification models and the proposed model. Section 5
+provides the major shortcomings in malicious URL detection.
+Section 6 includes description of data set. The working flow
+of malicious URL detection is discussed in Section 7. Section
+8 contains information of proposed architecture. Details of
+performance measures is discussed in Section 9. Results are
+discussed in Section 10. At last, conclusion and future works
+are placed in Section 11.
+II. R ELATED WORKS
+The detailed literature survey of machine learning based
+malicious URL detection, see [6]. This section discusses the
+most important works towards malicious URL detection.
+At beginning stages, blacklisting, regular expression and
+signature matching approaches are most commonly used for
+malicious URL detection. These methods completely fails
+to detect new or variant of existing URL. Moreover, the
+signature data base has to be updated frequently to handle new
+patterns of malicious URL. Later, machine learning algorithms
+were used to effectively detect new types of malicious URL.
+Conventional machine learning algorithms depends on feature
+engineering to extract a list of features from URL. This
+feature engineering requires an extensive domain knowledge
+of URL in cyber security and a list of good features has
+to be carefully chosen through feature selection. There are
+various types of features were used in the published works
+for malicious URL detection. This includes blacklist features
+[7], [8], lexical features [9], [8], [10], host based features
+[11], [12], [13], content features, context and popularity based
+features [14], [15], [16]. Blacklist features are estimated
+through by checking its presence of a URL in a blacklist. This
+could serve as a strong feature in identifying malicious URL.
+Lexical features are estimated through the string properties of
+the URL e.g. number of special characters, length of URL
+etc. Host based features are obtained from the host name
+properties of the URL. This includes information related to
+WHOIS information, IP Address, Geographic location etc.
+Content feature are derived from the HTML and JavaScript
+when an unsuspecting user visits a webpage through the
+malicious URL. Content features includes information related
+to their ranking, popularity scores and source of sharing. Many
+existing studies have used separate feature category and as
+well as a combination of these features which was continually
+determined through domain experts.
+
+Feature engineering is a daunting task with considering the
+security threats. For example, obtaining context based features
+consumes more time and it is high risky too. Moreover,
+feature selection requires extensive domain knowledge. The
+information which is obtained directly from the raw URL was
+well-known approach [8], [17]. From the published results,
+obtaining the lexical feature is easier in comparison to other
+features and it gave good performances [18]. Statistical properties of the URL string such as length of the URL, number
+of special characters [19] have been most commonly used
+and other most popular features were BoW, term frequency
+methods such as term document matrix (TDM) and term
+frequency and inverse document frequency (TF-IDF) and ngram features [8], [18], [19]. All these features are not effective
+in extracting sequential order and semantics of URL. This
+completely disregards the information from unseen characters.
+Moreover, malicious URL detection solution based on the
+feature engineering with conventional machine learning can
+be easily broken by an adversary.
+In recent days, the application of deep learning with character level embedding has been used for malicious URL
+detection [37], [38], [39], [40], [41], [42], [43], [44], [45].
+In [20] compared a detailed analysis of deep learning with
+character level embedding and conventional machine learning
+with feature engineering methods for malicious and phishing
+URL detection. Deep learning architectures performed well in
+comparison to the conventional algorithms. The application of
+recurrent neural network (RNN) and long short-term memory
+(LSTM) applied to phishing URL detection [21]. For comparative analysis, lexical features and statistical URL analysis
+was used with random forest classifier. Both models performed
+well, the performance of LSTM was good in comparison
+to the conventional machine learning method. In [22] used
+convolution neural network (CNN) with character level character level Keras embedding for detecting malicious URLs,
+file paths and registry keys. This study showed how a unique
+deep learning architecture could be used on different cyber
+security problems. Like this, there are so many benchmark
+deep learning architectures exist. In this work, we evaluate
+the performance of various deep learning architectures for
+malicious URL detection.
+III. A N OVERVIEW OF U NIFORM R ESOURCE L OCATOR
+(URL)
+A uniform resource locator (URL) is a part of uniform
+resource identifier (URI) which is used to identify and retrieve
+a resource from the internet service. A URL is composed of
+two parts, shown in Fig. 1. The first part defines the type of
+protocol, for example http or https, the second part defines the
+domain name or IP address and the third part defines path and
+its parameters to a specific resource on the web. The protocols
+are separated by double slash from a complete URL, domain
+name are separated by dot and path and its parameters are
+separated by single slash. A sample URL is given in Fig. 1.
+An adversary use URL as a main source to host malicious
+activities. Most commonly the malicious URLs are spreaded
+via email and other social media apps. Once an unsuspecting
+
+IV. BACKGROUND DETAILS OF D EEP LEARNING M ODELS
+A. Hybrid architecture - convolutional neural network and
+long short-term memory (CNN-LSTM) with character level
+Keras embedding
+Convolutional neural network (CNN) based on character
+(CNN-C) level is a minimal variant of the deep CNN based on
+character level [36]. CNN-C primarily uses one dimensional
+convolution and pooling operations also called as temporal
+convolution and temporal pooling respectively. CNN-C extracts optimal features from the character level representation
+of URL. For character level representation, the character
+level Keras embedding representation is used. This takes 3
+parameters such as dictionary size, maximum length of the
+character vector and embedding vector length. Initially, the
+character level Keras embedding weights are initialized and it
+can be controlled so it served as hyper parameter. The weights
+are optimized during backpropogation. The CNN features are
+passed into LSTM which facilitates to learn character level
+sequence representation. The flow can be formulated as given
+below
+E = Character Level Keras embedding(U RL)
+nally the L is passed into fully connected layer for
+classifying the URL into either benign or malicious.
+O = σ(L)
+Where σ is sigmoid activation function
+B. Character based models
+Character based model takes an input text as a string of
+characters and automatically extracts features. These features
+can be used for performing different tasks for e.g. text classification. There are different character based models exist in the
+field of natural language processing (NLP), in this work the
+efficacy of them are evaluated for cyber security application
+namely malicious URL detection, otherwise the best character
+based model will not be known for malicious URL detection.
+All model use embedding as first layer to transform the URLs
+into numeric vectors. The details of the various character based
+models are given in Table I. The details of the various character
+based models are given below
+1) Character level models based on RNN
+Endgame Architecture: [28] It uses LSTM with character level Keras embedding for modeling domain generation algorithms (DGAs) to detect and categorize the
+domain names that are generated by DGAs. As character
+level Keras embedding facilitates to learn the sequence
+of characters of domain names which helps to preserve
+the order of character in domain names. Moreover, it
+completely avoids the feature engineering method that
+is an important step for classical machine learning methods. The method has outperformed well in comparison to
+the other methods such as hidden markov model, feature
+engineering and bigrams with classical machine learning
+classifiers. The proposed LSTM network composed of
+an embedding layer for URL representation, LSTM layer
+for optimal feature extraction and logistic regression for
+classification. The embedding layer maps each character
+to of shape 128 and passes into LSTM for feature learning and logistic regression for assigning a probability
+score for each domain name.
+CMU Architecture: [34] CMU Architecture named as
+Tweet2vec for tweet representation and classification for
+social media data. It uses bidirectional gated recurrent
+unit (BGRU) to learn feature representation of Twitter
+data. The tweets are tokenized into a stream of characters and each character is represented by using onehot character encoding. These one-hot representations
+are mapped into a character space and passes into the
+BGRU. It contains forward and backward GRU which
+facilitate to learn the sequence of characters in the
+domain name. Both the forward and backward GRU
+layers are combined using a fully connected layer and
+sof tmax non-linear activation function was used for
+tweet classification particularly to predict hashtags of
+tweets. For comparative study, the tweet2vec is evaluated
+on the word level tweet representation.
+2) Character level models based on CNN
+NYU Architecture: Convolutional neural network
+(CNN) is most commonly used in the field of image
+processing. In recent days, 1D CNN has been mapped
+into text classification [35]. They used word based
+CNN and LSTM. The CNN of NYU is stacked CNN.
+With CNN, pretrained embedding, embedding and
+look up tables are used as text representation methods.
+With LSTM, pretrained word embedding is used as
+text representation method. For evaluation, they used
+different types of large scale data sets. They claimed
+that the character level CNN model performed well in
+comparison to the classical and deep learning models.
+The efficacy of deep learning models is evaluated on
+the classical text representation methods such as BoW,
+n-gram with TF-IDF.
+Invincea Architecture: To model short character
+strings such as URLs, file paths, or registry keys of
+cyber security data, [22] proposed CNN network. This
+CNN network is composed of character level Keras
+embedding layer, parallel CNN layer and followed
+by 3 fully connected layers. All 3 fully connected
+layers contain 1,024 units and ReLU as an activation
+function. The architecture uses batch normalization and
+dropout regularization technique to speed up the model
+training and prevent from over fitting. To classify the
+short character strings as either legitimate or malicious,
+the CNN network contains a fully connected layer with
+unit 1 and sigmoid non-linear activation function.
+3) Character level models based on hybrid CNN and
+RNN
+MIT Architecture: [36] This is an extension of NYU
+model for tweet classification. It is composed of stacked
+CNN layers followed by an LSTM layer. The stacked
+CNN layer results in overfitting. To alleviate this, minimum number of parameters is used, i.e. one CNN layer
+followed by LSTM layer.
+
+C. Problem Formulation
+The objective of this work is to classify a given URL
+as either legitimate or malicious and classification problem is binary. Let’s consider a set of URLs U =
+{(u1 , y1 ), (u2 , y2 ), · · · (un , yn )} where u represents URL and
+y represents ’0’ for legitimate and ’1’ for malicious.
+There are two steps involved in classification procedure,
+one is appropriate feature representation and second one is
+prediction function. Feature representation forms n dimensional vector representation xn which can be passed into
+prediction function as input yn = sign(f (xn )). The main
+aim is to minimize the total number of misclassification in
+classification procedure. This can be achieved by minimizing
+the loss function. This type of loss function can also include
+regularization term. In this work f is represented as deep
+learning architectures.
+
+V. S HORTCOMINGS IN M ALICIOUS URL D ETECTION
+There are no publically available benchmark data sets for
+research in malicious URL detection. Most of the published
+results on malicious URL detection have used their own private
+data sets in evaluating the efficacy of various conventional
+machine learning algorithms and deep learning architectures.
+These private data sets are collected from various sources
+such as Alexa, DMOZ, Phishtank, OpenPhish, MalwareDomains, MalwareDomainList and many others. Though, these
+approaches cannot be regarded as generic methods due to the
+data sets are not common in the methods. Most of the published results haven’t given any importance to the time-split
+methodology to divide the data into train and test. Recently,
+[27] discussed the importance of time-split in dividing the
+data into train and test sets. The data splitting methodology
+based on time-split is very important to meet the zero day
+malware detection. Recently, the background reason behind
+why machine learning based solutions for security are not
+deployable discussed by [24]. The detailed test cases that
+should be considered in test experiments is discussed in
+detail by [25]. These different test cases helps to evaluate
+the robustness of machine learning based solutions. Moreover,
+they have discussed the difficulty behind applying data science
+techniques for cyber security.
+
+VI. D ESCRIPTION OF DATA SET
+It is necessary that different forms of URL have to be used
+to assess the performance of various conventional machine
+learning classifiers and deep learning architectures. There are
+two types of data sets are used. They are Data set 1 and Data
+set 2. The Data set 1 is collected from publically available
+sources such as Alexa.com, DMOZ directory, MalwareDomainlist.com and MalwareDomains.com, CEN Amrita Vishwa
+Vidyapeetham research internal network backbone. The Data
+set 2 is from Sophos research [26]. Most commonly used
+methodology for dividing data into train and test is randomsplit [31]. Data set 1 follows random-split. The classifier which
+is modeled using random-split approach is not an efficient
+splitting methodology to meet zero day malware detection
+[27]. Data set 2 follows both the random-split and time-split
+[27]. In the domain of Cyber security, it is good to follow the
+time-split. This facilitates to enhance the zero day malware
+detection. The detailed statistics of both Data set 1 and Data
+set 2 are reported in Table II.
+
+The working flow of malicious URL detection process is
+shown in Fig. 2. It is composed of 3 different sections.
+They are (1) preprocessing (2) optimal features extraction (3)
+classification
+In preprocessing, the URLs are transformed into feature vector
+using text representation methods and the optimal features
+from the numeric vectors are extracted using various benchmark models such as Invincea, NYU, MIT, CMU, Endgame
+and proposed model, DeepURLDetect (DUD) and finally
+classification is done using fully connected layer with nonlinear activation function.
+
+DNN for optimal feature extraction and classification, the
+detailed configuration parameter details of DNN is available
+in Table V. To avoid overfitting and speed up the training
+process, dropout and batch normalization is used respectively
+in between the DNN layers. Followed by embedding layer,
+DUD contains convolution layer. This layer contains 64 filters
+with filter length 5, activation function ReLU . Convolutional
+layer follows maxpooling with pool length 4, LSTM with
+70 memory blocks. Finally the optimal features are passed
+into fully connected layer which contains sigmoid non-linear
+activation function which results in 0 for legitimate and 1 for
+spam. The loss function is binary cross entropy and defined
+mathematically as given below.
+
+The characters in URLs are converted into lower case. This
+is due to domain names are case insensitive and differentiating
+between capital and small letters may cause regularization
+issue. Otherwise, the models has to be run for more number
+of epochs to learn the patterns of all possibilities of characters
+exist in the URLs. The Data set 1 corpus contains 150
+unique characters, dictionary size and the maximum length
+of the URL is 2,307. The Data set 2 random-split and timesplit corpus contains 42 unique characters and the maximum
+length of the URL is 246. The URL which is lesser than the
+maximum length is padded with 0. The detailed architecture
+and configuration details of DUD is shown in Table III and
+Table IV for Data set 1 and Data set 2 random-split and timesplit respectively. In DUD, character level Keras embedding
+contains 128 as embedding size, as each character is mapped
+into 128 dimension. This helps to learn the similarity among
+characters by mapping the semantics of similar characters to
+similar vectors. All models contains character level Keras embedding as URL representation method and the dimensionality
+of the embedding size is set to same size to conduct a fair
+comparative evaluation strategy. To know the effectiveness of
+character level Keras embedding, 3-gram text representation
+method is mapped into domain names. The features of 3grams are hash it into a vector of length 1,000 using feature
+hashing. These 1,000 dimensional vectors are passed into
+
+distributed data base for further use. The deep learning module
+has Front End Broker to display the detailed information
+about the URL analysis. The framework contains continuous
+monitoring module which monitors detected malicious URLs.
+This continuously monitors the targeted URL once in 30
+seconds. This helps to detect the malicious URL which are
+generated using Digitally Generated Algorithms (DGA).
+
+The main objective of this work is classify whether the URL
+is either benign or malicious. To identify the performance of
+the deep learning architectures, we have used the following
+statistical metrics.
+• True positive (T P ) : malicious URL that is correctly
+classified as malicious URL.
+• True negative (T N ) : benign URL that is correctly
+classified as benign URL.
+• False positive F P : benign URL that is incorrectly
+classified as malicious URL.
+• False negative (F N ) : malicious URL that is incorrectly
+classified as benign URL.
+The above metrics are obtained from confusion matrix.
+Confusion matrix a matrix representation where each row
+indicates the URL samples in a predicted class and each
+column indicates the URL samples URL samples in an actual
+class. We estimate the statistical measures such as Accuracy,
+Precision, Recall, F1-score, true positive rate (T P R) and
+false positive rate (F P R) from confusion matrix and they
+are defined mathematically as follows:
+cyber threat situational awareness in order to enhance the
+malicious detection rate [32]. The architecture consists of three
+main modules (1) Data collection (2) Identifying malicious
+URL (3) Continuous monitoring
+Distributed log collector collects URL logs from various
+different sources inside an Ethernet LAN in a passive way
+and passed into distributed data base. Following, the URLs
+are parsed using distributed log parser and fed into deep
+learning module. This classify the URLs into either malicious
+or legitimate. A copy of the preprocessed URLs are stored in
+
+The accuracy estimates the ratio of the total number of
+correct classifications. The precision estimates the number of
+correct classifications penalised by the number of incorrect
+classifications. The recall estimates the number of correct
+classifications penalised by the number of missed entries.
+Recall is also called as sensitivity or true positive rate. The
+F1-score estimates the harmonic mean of precision and recall,
+which serves as a derived effectiveness measurement. Receiver
+operating characteristic (ROC) curve denotes the performance
+of the classifier and plotted using T P R on Y axis and F P R
+on X axis. Generally, the ROC curve is used when the classes
+are balanced and for imbalanced classes precision-recall curve
+
+used. To generate precision-recall curve, we estimated the
+trade-off between the precision and recall across varying
+threshold in the range of [0, 1].
+X. E VALUATION R ESULTS AND O BSERVATIONS
+All deep learning architectures are implemented using
+TensorFlow [29] with Keras [30] and conventional machine
+learning algorithms are implemented using Scikit-learn [31].
+Graphical processing unit (GPU) enabled machine are used
+for experimental purpose. Initially, all the models are trained
+with Data set 1. To evaluate the performance of the trained
+model on Data set 1 is tested with the test data set of Data
+set 1. Likewise, same approach is followed for Data set 2
+random-split and Data set 2 time-split. Most of the models
+
+performed well on Data set 1 in comparison to the Data
+set 2 random-split and time-split. Moreover, the performance
+of various models on Data set 2 random-split is good in
+comparison to the Data set 2 time-split. This is due to the
+fact that the samples of test data of Data set 2 time-split is
+unseen during training. The detailed results are reported in
+Tables VI and VII. The receiver operating characteristic (ROC)
+curve for various models on different test data sets are shown
+in Fig. 4a for Data set 1, Fig. 4b for Data set 2 randomsplit and Fig. 4c for Data set 2 time-split with comparing
+two operating characteristics such as true positive rate and
+false positive rate across varying threshold in the range [0.0
+- 1.0]. Likewise the precision-recall curve for various models
+on different test data sets are shown in Fig. 5a for Data set 1,
+
+gram text representation method with DNN. Deep learning
+with embedding based malicious URL detection can be robust
+solution over hand crafted features with conventional machine
+learning based solutions. This is due to malicious author can
+utilize domain knowledge to learn the hand crafted features
+with the aim to evade detection. They can make use of
+generative adversarial networks in deep learning, the details
+are discussed in [28].
+
+In this work, a comparative analysis of various deep learning based character level embedding models for malicious
+URL detection is done. All deep learning architectures have
+marginal difference in terms of accuracy. Among 5 models,
+two are based on RNN, two are based on CNN and one is
+based on hybrid of CNN and LSTM. All the models performed
+well and achieved around 93-98% malicious URL detection
+rate with false positive rate of 0.001. This indicates that if the
+deep learning based character level embedding models able to
+catch 970 malicious URL; they label only one benign URL
+as malicious. For comparative analysis, DNN with n-gram is
+used. In all test cases, deep learning based character level
+models performed well in comparison to the other models. All
+deep learning based character level embedding based models
+have the potential to handle drifting of malicious URLs and
+supply as a robust method in an adversarial environment.
+Though deep learning has performed well, it is good to
+have conventional methods such as blacklisting using regular
+expression, signature matching method and conventional machine learning based solutions as an initial gateway followed
+by deep learning based character level embedding models. The
+christened DeepURLDetect (DUD) can be made more robust
+by adding auxiliary modules such as registration services,
+website content, network reputation, file paths and registry
+keys. This can be considered as one of the significant direction
+towards future work.
